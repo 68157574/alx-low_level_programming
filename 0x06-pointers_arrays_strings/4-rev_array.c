@@ -1,7 +1,6 @@
 #include "main.h"
 
 
-
 /**
 * reverse_array -> reversing an array
 * @a: array a
