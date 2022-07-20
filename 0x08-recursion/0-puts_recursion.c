@@ -15,5 +15,5 @@ return;
 }
 _putchar(*s);
 s++;
-_puts_recursion(s + 1);
+_puts_recursion(s);
 }
