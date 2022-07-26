@@ -83,5 +83,5 @@ length = 0;
 str++;
 }
 }
-return (words);
+return (NULL);
 }
