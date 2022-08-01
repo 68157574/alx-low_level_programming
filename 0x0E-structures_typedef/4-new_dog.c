@@ -4,63 +4,34 @@
 
 
 /**
-*_strcpy - Copy the given string
-* @dest: Location to copy string to
-* @src: String to copy to given location
-* Return: Pointer to dest
-*/
-char *_strcpy(char *dest, char *src)
-{
-int i = 0;
-while (*(src + i) != 0)
-{
-*(dest + i) = *(src + i);
-i++;
-}
-*(dest + i) = '\0';
-return (dest);
-}
-/**
-* new_dog - Create a new dog struct
-* @name: Name of dog
-* @age: Age of dog
-* @owner: Owner of dog
-* Return: pointer to struct, NULL if fails
+* new_dog - creates a new struct of type dog
+* @name: struct parameter name
+* @age: struct parameter age
+* @owner: struct parameter owner
+* Return: returns pointer to buffer of datatype dog
 */
 dog_t *new_dog(char *name, float age, char *owner)
 {
-dog_t *new_dog;
-char *new_name;
-char *new_owner;
-int len;
-new_dog = malloc(sizeof(dog_t));
-if (new_dog == NULL)
+int nlen, olen, i;
+dog_t *doggy;
+nlen = olen = 0;
+while (name[nlen++])
+;
+while (owner[olen++])
+;
+doggy = malloc(sizeof(dog_t));
+if (doggy == NULL)
 return (NULL);
-len = 0;
-while (name[len] != '\0')
-len++;
-len++;
-new_name = malloc(len * sizeof(*owner));
-if (new_name == NULL)
-{
-free(new_dog);
+doggy->name = malloc(nlen *sizeof(doggy->name));
+if (doggy == NULL)
 return (NULL);
-}
-len = 0;
-while (name[len] != '\0')
-len++;
-len++;
-new_owner = malloc(len * sizeof(*name));
-if (new_owner == NULL)
-{
-free(new_name);
-free(new_dog);
+for (i = 0; i < nlen; i++)
+doggy->name[i] = name[i];
+doggy->age = age;
+doggy->owner = malloc(olen * sizeof(doggy->owner));
+if (doggy == NULL)
 return (NULL);
-}
-_strcpy(new_name, name);
-_strcpy(new_owner, owner);
-new_dog->name = new_name;
-new_dog->age = age;
-new_dog->owner = new_owner;
-return (new_dog);
+for (i = 0; i < olen; i++)
+doggy->owner[i] = owner[i];
+return (doggy);
 }
