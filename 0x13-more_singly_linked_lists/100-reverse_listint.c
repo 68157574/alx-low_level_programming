@@ -10,19 +10,17 @@
 */
 listint_t *reverse_listint(listint_t **head)
 {
-listint_t *current;
-listint_t *next;
-current = *head;
-if (current == NULL)
-return (NULL);
-next = current->next;
-current->next = NULL;
-while (next != NULL)
+listint_t *p;
+listint_t *n;
+p = NULL;
+n = NULL;
+while (*head != NULL)
 {
-current = next;
-next = next->next;
-current->next = *head;
-*head = current;
+n = (*head)->next;
+(*head)->next = p;
+p = *head;
+*head = n;
 }
+*head = p;
 return (*head);
 }
