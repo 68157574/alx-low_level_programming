@@ -1,25 +1,33 @@
 #include "main.h"
-#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+
 
 /**
-* append_text_to_file - appends text to a file
-* @filename: file to append to, if NULL, return -1
-* @text_content: content to append, if NULL, do not append
-* Return: 1 on success, -1 on failure
+* append_text_to_file - Open a file and add text to the end of the file
+* @filename: File to open and append to
+* @text_content: Text to append to file
+* Return: 1 on success, -1 on failures
 */
 int append_text_to_file(const char *filename, char *text_content)
 {
-int append_file, len, wr_stat;
+int file, len, wrote;
+len = 0;
 if (filename == NULL)
 return (-1);
-append_file = open(filename, O_WRONLY | O_APPEND);
-if (append_file == -1)
+file = open(filename, O_WRONLY | O_APPEND);
+if (file == -1)
 return (-1);
-if (text_content == NULL)
+if (text_content != NULL)
+{
+while (text_content[len] != '\0')
+len++;
+wrote = write(file, text_content, len);
+if (wrote == -1)
+return (-1);
+}
+close(file);
 return (1);
-for (len = 0; text_content[len]; len++)
-;
-wr_stat = write(append_file, text_content, len);
-close(append_file);
-return (wr_stat == -1 ? -1 : 1);
 }
